@@ -1,0 +1,14 @@
+language: java
+before_deploy:
+  - export RELEASE_JAR_FILE=$(ls $TRAVIS_BUILD_DIR/build/libs/CareerDevelopmentService-*.jar)
+  - echo "Deploying $RELEASE_JAR_FILE to GitHub releases"
+deploy:
+  provider: releases
+  api_key:
+    secure: dHp2bWEaCmqFRnOX44WH39kCgqH5weZh+BPZoHLDZawLRAGkwaLHkjhfl8DhPecxEpqKmfTjEZn4kwTnOrgJaQnoFJcva5oz84A4NHzivn8uFlblXtkjbN0kYKuowO+WyKnnNq/PVP/gxvCa/TTxODfqOHcCLoEeAAri253AgyAO1j4wOJGVYfrECISxKJIkOay3t8B5aI4iFvAm3LFQhFf8PWL8J91Z36T/6qDJo+p6vGqpUrjKn6TIiF5pPvL/h4aKgyWfV5dgpSTDVu0GKFHhQJe6XL4zH+nQR2T/rNNoO+x8+knrAWsUxBehGezU43Frc1eUG+F5O3jMo8guhNHeXggYKa0QCFqJdPNEbq8BUPJQdEAkrGkjHBsTR3e5UWZr2S/j4zFwDQO3iCr8taEbYwmnD8awnd6zDo9sq0NsTbIeO3o6CunkEITJvvD3logWQTaQkAUDTmoJ3n4YTel6bWhMjB+t0unseUeqyB/Afa57dxx1cJ4wyoaBdrbVSWyjNTFP73z3TgU3t6wBujWKQwSSxdXsHHkene6mBPZYxKDc/rdvSUF76E62urpz1DRrc/NetvR4spFEcOQCxxIGPSRturhJ8MhmTVEpIo31mbgXTxSXLYhYBzLEUwULbNQ12P7+y+VceJZxbwnonTK5esBSvErPv9UZF0/qFjk=
+  file_glob: true
+  file: "${RELEASE_JAR_FILE}"
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: electrocucaracha/CareerDevelopmentService
