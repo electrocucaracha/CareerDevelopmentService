@@ -1,4 +1,4 @@
-package com.electrocucaracha.apps.cdp.service;
+package com.electrocucaracha.apps.cdp.services;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
