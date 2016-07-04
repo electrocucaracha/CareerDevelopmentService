@@ -6,16 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.electrocucaracha.apps.cdp.dao.CategoryDao;
 import com.electrocucaracha.apps.cdp.entities.CategoryEntity;
+import com.electrocucaracha.apps.cdp.errorhandling.CategoryNotFoundException;
 import com.electrocucaracha.apps.cdp.errorhandling.InvalidInputException;
 
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryDao categoryDao;
-
-	public CategoryDao getDao() {
-		return categoryDao;
-	}
 
 	public void setDao(CategoryDao categoryDao) {
 		this.categoryDao = categoryDao;
@@ -46,21 +43,30 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public void update(CategoryEntity entity) {
-		// TODO Auto-generated method stub
-
+	public void update(CategoryEntity entity) throws CategoryNotFoundException {
+		if (categoryDao.get(entity.getId()) == null) {
+			throw new CategoryNotFoundException(
+					"Category with the id " + entity.getId() + " doesn't exist in the database");
+		}
+		categoryDao.update(entity);
 	}
 
 	@Override
-	public void delete(CategoryEntity entity) {
-		// TODO Auto-generated method stub
-
+	public void delete(CategoryEntity entity) throws CategoryNotFoundException {
+		if (categoryDao.get(entity.getId()) == null) {
+			throw new CategoryNotFoundException(
+					"Category with the id " + entity.getId() + " doesn't exist in the database");
+		}
+		categoryDao.delete(entity);
 	}
 
 	@Override
-	public CategoryEntity get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public CategoryEntity get(long id) throws InvalidInputException{
+		if(id < 0){
+			throw new InvalidInputException("There is no category with negative identifier");
+		}
+		
+		return categoryDao.get(id);
 	}
 
 }

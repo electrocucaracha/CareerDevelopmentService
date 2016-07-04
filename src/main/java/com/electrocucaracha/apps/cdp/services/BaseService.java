@@ -2,22 +2,18 @@ package com.electrocucaracha.apps.cdp.services;
 
 import java.util.List;
 
-import com.electrocucaracha.apps.cdp.errorhandling.InvalidInputException;
-
 public interface BaseService<E, D> {
-
-	D getDao();
 
 	void setDao(D dao);
 
-	long create(E entity) throws InvalidInputException;
+	long create(E entity) throws Exception;
 
 	List<E> retrieve();
 
-	void update(E entity);
+	void update(E entity) throws Exception;
 
-	void delete(E entity);
+	void delete(E entity) throws Exception;
 
-	E get(long id);
+	E get(long id) throws Exception;
 
 }
